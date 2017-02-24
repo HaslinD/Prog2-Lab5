@@ -535,6 +535,8 @@ public class LabMainFrame extends javax.swing.JFrame {
         jtr_categ.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane5.setViewportView(jtr_categ);
 
+        jl_Nombres.setModel(new DefaultListModel()
+        );
         jScrollPane6.setViewportView(jl_Nombres);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -624,12 +626,6 @@ public class LabMainFrame extends javax.swing.JFrame {
             calificacion = Integer.parseInt(jt_calificacion.getText());
             categoria = cb_Categorias.getSelectedItem().toString();
             
-            //----------------------------------------------------------------\\
-            DefaultTableModel modelo = (DefaultTableModel) TablaAll.getModel();
-            Object[] newrow = {nombre, direccion, nivel, categoria};
-            modelo.addRow(newrow);
-            TablaAll.setModel(modelo);
-            //----------------------------------------------------------------\\
             DefaultTreeModel m = (DefaultTreeModel)jtr_categ.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
             DefaultMutableTreeNode category;
