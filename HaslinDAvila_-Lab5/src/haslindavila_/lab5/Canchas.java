@@ -32,7 +32,7 @@ public class Canchas extends Lugar{
 
     @Override
     public String toString() {
-        return "Canchas{" + "categoria=" + categoria + ", estado=" + estado + '}';
+        return super.toString()+ "Canchas{" + "categoria=" + categoria + ", estado=" + estado + '}';
     }
     
     

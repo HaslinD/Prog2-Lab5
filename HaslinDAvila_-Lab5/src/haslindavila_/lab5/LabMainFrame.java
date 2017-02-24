@@ -7,6 +7,9 @@ package haslindavila_.lab5;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -94,6 +97,15 @@ public class LabMainFrame extends javax.swing.JFrame {
         cb_Final = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TablaAll = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jtr_categ = new javax.swing.JTree();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jl_Nombres = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -468,15 +480,79 @@ public class LabMainFrame extends javax.swing.JFrame {
 
         tabPrin.addTab("Creacion", jPanel1);
 
+        TablaAll.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Direccion", "Nivel", "Categoria"
+            }
+        ));
+        jScrollPane4.setViewportView(TablaAll);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Tabla", jPanel10);
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
+        jtr_categ.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane5.setViewportView(jtr_categ);
+
+        jScrollPane6.setViewportView(jl_Nombres);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(150, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(70, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
+        );
+
+        jTabbedPane1.addTab("Arbol / Lista", jPanel9);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         tabPrin.addTab("Listar", jPanel2);
@@ -519,7 +595,6 @@ public class LabMainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nombre, direccion, categoria;
         int nivel, calificacion;
-        Carretera Inicio, Salida;
         try {
             nombre = jt_Nombre.getText();
             direccion = ta_Direccion.getText();
@@ -527,10 +602,23 @@ public class LabMainFrame extends javax.swing.JFrame {
             calificacion = Integer.parseInt(jt_calificacion.getText());
             categoria = cb_Categorias.getSelectedItem().toString();
             
-            Inicio = (Carretera)cb_CarrEntr.getSelectedItem();
-            Salida = (Carretera)cb_CarrSal.getSelectedItem();
-            
-            lugares.add(new Restaurantes(categoria, calificacion, nombre, direccion, nivel, Inicio, Salida));
+            //----------------------------------------------------------------\\
+            DefaultTableModel modelo = (DefaultTableModel) TablaAll.getModel();
+            Object[] newrow = {nombre, direccion, nivel, categoria};
+            modelo.addRow(newrow);
+            TablaAll.setModel(modelo);
+            //----------------------------------------------------------------\\
+            DefaultTreeModel m = (DefaultTreeModel)jtr_categ.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+            DefaultMutableTreeNode category;
+            category = new DefaultMutableTreeNode(categoria);
+            DefaultMutableTreeNode name;
+            name = new DefaultMutableTreeNode(nombre);
+            category.add(name);
+            raiz.add(category);
+            m.reload();
+            //----------------------------------------------------------------\\
+            lugares.add(new Restaurantes(categoria, calificacion, nombre, direccion, nivel, new Carretera(), new Carretera()));
             JOptionPane.showMessageDialog(null, "Ha sido Agregado Exitosamente!!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error!!");
@@ -547,7 +635,6 @@ public class LabMainFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String nombre, direccion, categoria, estado;
         int nivel;
-        Carretera Inicio, Salida;
         try {
             nombre = jt_Nombre1.getText();
             direccion = ta_Direccion1.getText();
@@ -555,10 +642,13 @@ public class LabMainFrame extends javax.swing.JFrame {
             categoria = cb_Categorias1.getSelectedItem().toString();
             estado = cb_Estado.getSelectedItem().toString();
             
-            Inicio = (Carretera)cb_CarrEntr1.getSelectedItem();
-            Salida = (Carretera)cb_CarrSal1.getSelectedItem();
-            
-            lugares.add(new Canchas(categoria, estado, nombre, direccion, nivel, Inicio, Salida));
+            //----------------------------------------------------------------\\
+            DefaultTableModel modelo = (DefaultTableModel) TablaAll.getModel();
+            Object[] newrow = {nombre, direccion, nivel, categoria};
+            modelo.addRow(newrow);
+            TablaAll.setModel(modelo);
+            //----------------------------------------------------------------\\
+            lugares.add(new Canchas(categoria, estado, nombre, direccion, nivel, new Carretera(), new Carretera()));
             JOptionPane.showMessageDialog(null, "Ha sido Agregado Exitosamente!!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error!!");
@@ -580,10 +670,7 @@ public class LabMainFrame extends javax.swing.JFrame {
             direccion = ta_Direccion2.getText();
             nivel = (int)js_nivel2.getValue();
             
-            Inicio = (Carretera)cb_CarrEntr2.getSelectedItem();
-            Salida = (Carretera)cb_CarrSal2.getSelectedItem();
-            
-            lugares.add(new Casa(nombre, direccion, nivel, Inicio, Salida));
+            lugares.add(new Casa(nombre, direccion, nivel, new Carretera(), new Carretera()));
             JOptionPane.showMessageDialog(null, "Ha sido Agregado Exitosamente!!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error!!");
@@ -605,7 +692,7 @@ public class LabMainFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -630,6 +717,7 @@ public class LabMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaAll;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cb_CarrEntr;
     private javax.swing.JComboBox<String> cb_CarrEntr1;
@@ -670,17 +758,24 @@ public class LabMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JList<String> jl_Nombres;
     private javax.swing.JSpinner js_nivel;
     private javax.swing.JSpinner js_nivel1;
     private javax.swing.JSpinner js_nivel2;
@@ -690,6 +785,7 @@ public class LabMainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jt_Nombre2;
     private javax.swing.JTextField jt_Numero;
     private javax.swing.JTextField jt_calificacion;
+    private javax.swing.JTree jtr_categ;
     private javax.swing.JTextArea ta_Direccion;
     private javax.swing.JTextArea ta_Direccion1;
     private javax.swing.JTextArea ta_Direccion2;
