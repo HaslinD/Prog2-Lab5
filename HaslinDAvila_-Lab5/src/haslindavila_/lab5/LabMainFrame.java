@@ -683,9 +683,6 @@ public class LabMainFrame extends javax.swing.JFrame {
         ta_Direccion.setText("");
         js_nivel.setValue(0);
         jt_calificacion.setText("");
-        cb_Categorias.setSelectedIndex(0);
-        cb_CarrEntr.setSelectedIndex(0);
-        cb_CarrSal.setSelectedIndex(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -723,9 +720,6 @@ public class LabMainFrame extends javax.swing.JFrame {
         jt_Nombre1.setText("");
         ta_Direccion1.setText("");
         js_nivel1.setValue(0);
-        cb_Categorias1.setSelectedIndex(0);
-        cb_CarrEntr1.setSelectedIndex(0);
-        cb_CarrSal1.setSelectedIndex(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -750,8 +744,6 @@ public class LabMainFrame extends javax.swing.JFrame {
         }
         jt_Nombre2.setText("");
         ta_Direccion2.setText("");
-        cb_CarrEntr2.setSelectedIndex(0);
-        cb_CarrSal2.setSelectedIndex(0);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cb_LugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_LugaresActionPerformed
