@@ -659,11 +659,9 @@ public class LabMainFrame extends javax.swing.JFrame {
             calificacion = Integer.parseInt(jt_calificacion.getText());
             categoria = cb_Categorias.getSelectedItem().toString();
             //----------------------------------------------------------------\\
-            if (Double.parseDouble(jt_Distancia.getText()) <= 50) {
                 DefaultListModel modelo = (DefaultListModel) jl_Nombres.getModel();
                 modelo.addElement(new Lugar(nombre, direccion, nivel, new Carretera(), new Carretera()));
                 jl_Nombres.setModel(modelo);
-            }
             //----------------------------------------------------------------\\
             DefaultTreeModel m = (DefaultTreeModel)jtr_categ.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
@@ -671,6 +669,7 @@ public class LabMainFrame extends javax.swing.JFrame {
             category = new DefaultMutableTreeNode(categoria);
             DefaultMutableTreeNode name;
             name = new DefaultMutableTreeNode(nombre);
+            nodotipo.add(category);
             category.add(name);
             raiz.add(category);
             m.reload();
@@ -704,6 +703,17 @@ public class LabMainFrame extends javax.swing.JFrame {
                 modelo.addElement(new Lugar(nombre, direccion, nivel, new Carretera(), new Carretera()));
                 jl_Nombres.setModel(modelo);
             }
+            //----------------------------------------------------------------\\
+            DefaultTreeModel m = (DefaultTreeModel)jtr_categ.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+            DefaultMutableTreeNode category;
+            category = new DefaultMutableTreeNode(categoria);
+            DefaultMutableTreeNode name;
+            name = new DefaultMutableTreeNode(nombre);
+            nodotipo2.add(category);
+            category.add(name);
+            raiz.add(category);
+            m.reload();
             //----------------------------------------------------------------\\
             canc.add(new Canchas(categoria, estado, nombre, direccion, nivel, new Carretera(), new Carretera()));
             JOptionPane.showMessageDialog(null, "Ha sido Agregado Exitosamente!!");
@@ -787,7 +797,7 @@ public class LabMainFrame extends javax.swing.JFrame {
             TablaAll.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Nombre", "Direccion", "Nivel", "Categoria"
+                    "Numero", "Distancia"
                 }
             ) {
             });
@@ -795,9 +805,8 @@ public class LabMainFrame extends javax.swing.JFrame {
             for (int i = 0; i < carr.size(); i++) {
                 Object[] newrow = {
                 carr.get(i).getNumero(),
-                carr.get(i).getDistancia(),
-                carr.get(i).getInicio(),
-                carr.get(i).getFinall()};
+                carr.get(i).getDistancia()
+                };
                 model2.addRow(newrow);
             }
             TablaAll.setModel(model2);
@@ -833,6 +842,18 @@ public class LabMainFrame extends javax.swing.JFrame {
         int numero;
         double distance;
         Lugar inicio, finall;
+        jt_Distancia.setText("0");
+        try {
+            numero = Integer.parseInt(jt_Numero.getText());
+            distance = Double.parseDouble(jt_Distancia.getText());
+            inicio = (Lugar)cb_Inicio.getSelectedItem();
+            finall = (Lugar)cb_Final.getSelectedItem();
+            
+            carr.add(new Carretera(inicio, finall, numero, distance));
+            JOptionPane.showMessageDialog(null, "Ha sido agrgado exitosamente!!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error!!");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -953,4 +974,6 @@ public class LabMainFrame extends javax.swing.JFrame {
     ArrayList<Canchas> canc = new ArrayList();
     ArrayList<Casa> casa = new ArrayList();
     ArrayList<Carretera> carr = new ArrayList();
+    DefaultMutableTreeNode nodotipo = new DefaultMutableTreeNode("Restaurante");
+    DefaultMutableTreeNode nodotipo2 = new DefaultMutableTreeNode("Canchas");
 }
